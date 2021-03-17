@@ -23,12 +23,15 @@ CXXOBJS := $(CXXSRCS:$(SRC)%.cpp=$(OBJ)%.o)
 all: $(TARGET);
 
 $(TARGET): $(COBJS) $(CXXOBJS)
+	@mkdir -p $(BIN)
 	$(CXX) $(CFLAGS) $(CXXFLAGS) $(COBJS) $(CXXOBJS) -o $(BIN)/$@ $(LDFLAGS)
 
 $(COBJS) : $(@:$(OBJ)%.o=$(SRC)%.c)
+	@mkdir -p $(OBJ)
 	$(CC) -c $(CFLAGS) $(@:$(OBJ)%.o=$(SRC)%.c) -o $@ $(LDFLAGS)
 
 $(CXXOBJS) : $(@:$(OBJ)%.o=$(SRC)%.cpp)
+	@mkdir -p $(OBJ)
 	$(CXX) -c $(CXXFLAGS) $(@:$(OBJ)%.o=$(SRC)%.cpp) -o $@ $(LDFLAGS)
 
 echo:
